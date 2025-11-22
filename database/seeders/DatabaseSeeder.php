@@ -14,16 +14,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->createOne([
-            'name' => "admin",
-            'email' => 'admin@gmail.com',
-            'is_admin'=>true
-        ]);
+        if (User::where('email', 'admin@gmail.com')->count() <= 0) {
+            User::factory()->createOne([
+                'name' => "admin",
+                'email' => 'admin@gmail.com',
+                'is_admin' => true
+            ]);
+        }
         $this->call([
             MatpelSeeder::class,
             KelasSeeder::class,
             SiswaSeeder::class,
-            GuruSeeder::class
+            GuruSeeder::class,
+            MateriSeeder::class,
         ]);
     }
 }

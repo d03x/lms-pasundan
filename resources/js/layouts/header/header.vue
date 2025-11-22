@@ -17,13 +17,4 @@ import Avatar from '@/components/avatar.vue';
 import Logo from './logo.vue';
 import Menu from './Menu.vue';
 import AppMenu from './menu/app-menu.vue';
-import MenuItem from './menu/menu-item.vue';
-import CiLogOut from '@/icons/CiLogOut.vue';
-import { useNavigationMenu } from '@/features/store/navStore';
-import { storeToRefs } from 'pinia';
-import MenuSiswa from './menu/menu-siswa.vue';
-import { cn } from '@/lib/utils';
-import MaterialSymbolsContactSupportRounded from '@/icons/MaterialSymbolsContactSupportRounded.vue';
-const navStore = useNavigationMenu()
-const {isOpen} = storeToRefs(navStore)
 </script>

@@ -47,21 +47,25 @@ watch(
         index="kode_matpel"
     />
     <!-- List Materi By Matpel -->
-    <div v-if="false" class="grid grid-cols-1 gap-3 lg:grid-cols-3">
-        <div v-for="i in 4">
+    <div v-if="$page.props.materials" class="grid grid-cols-1 gap-3 lg:grid-cols-3">
+        <div v-for="i in $page.props.materials">
             <div class="cursor-pointer rounded-lg bg-white p-4 shadow transition-all hover:translate-y-1">
                 <h1>
                     <SolarNotebookBold class="text-red-500" />
-                    <p>Materi #{{ i }}: Pemeliharaan Mesin Kendaraan Ringan dan optimasi bahan bakar pada motor</p>
+                    <p>
+                        {{ i.title }}
+                    </p>
                 </h1>
                 <div class="mt-2 flex flex-col space-y-1 text-sm">
                     <div class="flex items-center text-xs text-neutral-600">
                         <HugeiconsTeaching />
-                        <span class="ml-1 block">Prof. Ardiansyah,S.Kom,M.Kom</span>
+                        <span class="ml-1 block">
+                            {{ i.nama_guru }}
+                        </span>
                     </div>
                     <div class="flex items-center text-xs text-neutral-600">
                         <MaterialSymbolsLightBook5Rounded />
-                        <span class="ml-1 block">Komputer Dan Dasar Jaringan</span>
+                        <span class="ml-1 block">{{ i.nama_matpel }}</span>
                     </div>
                     <div class="flex items-center space-x-2">
                         <div class="flex items-center text-xs text-neutral-600">

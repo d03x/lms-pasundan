@@ -7,6 +7,7 @@ export type AppPageProps<T extends Record<string, unknown> = Record<string, unkn
     quote: { message: string; author: string };
     auth: Auth;
     matpels: Matpels[];
+    materials : any[]
 };
 export interface Matpels {
     kode_matpel: string;

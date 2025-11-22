@@ -14,7 +14,7 @@ class GuruSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 28; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $nip = str_pad(mt_rand(0, 9999999999), 8, '0', STR_PAD_LEFT);
             $siswa = Guru::create([
                 'nip' => $nip,
