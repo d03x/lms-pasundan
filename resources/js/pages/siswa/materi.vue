@@ -5,8 +5,8 @@ import HugeiconsTeaching from '@/icons/HugeiconsTeaching.vue';
 import IcBaselineRemoveRedEye from '@/icons/IcBaselineRemoveRedEye.vue';
 import MaterialSymbolsCheckCircleUnreadOutline from '@/icons/MaterialSymbolsCheckCircleUnreadOutline.vue';
 import MaterialSymbolsLightBook5Rounded from '@/icons/MaterialSymbolsLightBook5Rounded.vue';
+import MdiFileWord from '@/icons/MdiFileWord.vue';
 import NotFoundVector from '@/icons/NotFoundVector.vue';
-import SolarNotebookBold from '@/icons/SolarNotebookBold.vue';
 import { view } from '@/routes/siswa/materi';
 import { Link, router, usePage } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
@@ -51,8 +51,11 @@ watch(
         <div v-for="i in $page.props.materials">
             <div class="cursor-pointer rounded-lg bg-white p-4 shadow transition-all hover:translate-y-1">
                 <h1>
-                    <SolarNotebookBold class="text-red-500" />
-                    <p>
+                    <div class="mb-2 inline-flex items-center space-x-1 rounded text-sm text-primary">
+                        <MdiFileWord />
+                        <span class="text-xs">Materi #1</span>
+                    </div>
+                    <p class="line-clamp-2">
                         {{ i.title }}
                     </p>
                 </h1>
