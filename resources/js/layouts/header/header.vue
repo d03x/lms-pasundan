@@ -1,5 +1,5 @@
 <template>
-    <header class="z-50 h-24 bg-primary text-primary-foreground lg:h-header">
+    <header style="background-image: url('https://edlink.id/assets/img/base.png');" class="z-50 h-24 bg-primary bg-cover bg-no-repeat bg-left text-primary-foreground lg:h-header">
         <div class="container relative z-50 mx-auto flex h-24 items-center justify-start px-2 lg:h-header lg:px-0">
             <Logo />
             <div class="text-netural-600 ml-auto">
