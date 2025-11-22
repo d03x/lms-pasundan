@@ -32,6 +32,7 @@ class MateriController extends Controller
             ->select([
                 'materi_id',
                 'title',
+                'nama_kelas',
                 'nama_matpel',
                 'nama_guru',
             ]);

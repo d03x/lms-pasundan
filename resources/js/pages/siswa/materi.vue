@@ -47,33 +47,33 @@ watch(
         index="kode_matpel"
     />
     <!-- List Materi By Matpel -->
-    <div v-if="$page.props.materials" class="grid grid-cols-1 gap-3 lg:grid-cols-3">
+    <div v-if="$page.props.materials.length > 0" class="grid grid-cols-1 gap-3 lg:grid-cols-3">
         <div v-for="i in $page.props.materials">
-            <div class="cursor-pointer rounded-lg bg-white p-4 shadow transition-all hover:translate-y-1">
+            <div class="cursor-pointer hover:bg-neutral-50 hover:ring-1 hover:ring-neutral-400 transition-all rounded-lg bg-white p-4 shadow transition-all hover:translate-y-1">
                 <h1>
                     <div class="mb-2 inline-flex items-center space-x-1 rounded text-sm text-primary">
                         <MdiFileWord />
                         <span class="text-xs">Materi #1</span>
                     </div>
-                    <p class="line-clamp-2">
+                    <p class="line-clamp-2 font-semibold">
                         {{ i.title }}
                     </p>
                 </h1>
                 <div class="mt-2 flex flex-col space-y-1 text-sm">
-                    <div class="flex items-center text-xs text-neutral-600">
+                    <div class="flex items-center text-xs text-neutral-500">
                         <HugeiconsTeaching />
-                        <span class="ml-1 block">
+                        <span class="ml-1 block font-semibold">
                             {{ i.nama_guru }}
                         </span>
                     </div>
-                    <div class="flex items-center text-xs text-neutral-600">
+                    <div class="flex items-center text-xs text-neutral-500">
                         <MaterialSymbolsLightBook5Rounded />
-                        <span class="ml-1 block">{{ i.nama_matpel }}</span>
+                        <span class="ml-1 block font-semibold">{{ i.nama_matpel }}</span>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <div class="flex items-center text-xs text-neutral-600">
+                        <div class="flex items-center text-xs text-neutral-500">
                             <HugeiconsTaskDaily01 />
-                            <span class="ml-1 block">1 Tugas</span>
+                            <span class="ml-1 block font-semibold">{{ i.nama_kelas }}</span>
                         </div>
                         <MaterialSymbolsCheckCircleUnreadOutline class="text-green-600" />
                     </div>
