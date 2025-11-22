@@ -9,18 +9,26 @@ import NotFoundVector from '@/icons/NotFoundVector.vue';
 import SolarNotebookBold from '@/icons/SolarNotebookBold.vue';
 import { view } from '@/routes/siswa/materi';
 import { Link, router, usePage } from '@inertiajs/vue3';
-import { ref } from 'vue';
-const matpelCurrent = ref<string | null>(null);
-function selectMatpel(e: Event) {
-    const target = (e as any).target.value;
-    router.visit(
-        materi({
-            query: {
-                matpel_id: target,
-            },
-        }).url,
-    );
-}
+import { ref, watch } from 'vue';
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
+const page = usePage();
+const matpelCurrent = ref<any>(page.props.matpels.find((e) => e.kode_matpel === page.props.current_matpel));
+
+watch(
+    () => matpelCurrent.value,
+    function (e: any) {
+        if (e && e.matpel_kode) {
+            router.visit(
+                materi({
+                    query: {
+                        matpel_id: e.matpel_kode,
+                    },
+                }).url,
+            );
+        }
+    },
+);
 </script>
 
 <template>
@@ -28,16 +36,17 @@ function selectMatpel(e: Event) {
         <h1 class="text-xl font-bold text-neutral-700">Materi</h1>
         <p class="text-sm">Halaman ini menyajikan materi pada masing masing mata pelajaran</p>
     </div>
-    <select
-        @change="selectMatpel"
-        class="border-sm w-full lg:w-auto mb-3 cursor-pointer rounded border-neutral-200 bg-white p-1 py-1.5 text-sm text-neutral-600 shadow outline-none"
-    >
-        <option class="text-sm" value="" disabled :selected="!matpelCurrent">Pilih Mata Pelajaran</option>
-        <option v-for="matpel in $page.props.matpels" :selected="$page.props.current_matpel === matpel.kode_matpel" :value="matpel.kode_matpel" class="text-sm">
-            {{ matpel.nama_matpel ?? '' }} ({{ matpel?.nama_guru ?? '' }})
-        </option>
-    </select>
-
+    <!-- Select Matpel -->
+    <vSelect
+        placeholder="Pilih Kelas"
+        class="mb-3 lg:max-w-sm"
+        v-model="matpelCurrent"
+        :selected="$page.props.matpels.filter((e) => e.kode_matpel == $page.props.current_matpel)"
+        :options="$page.props.matpels"
+        label="nama_matpel"
+        index="kode_matpel"
+    />
+    <!-- List Materi By Matpel -->
     <div v-if="false" class="grid grid-cols-1 gap-3 lg:grid-cols-3">
         <div v-for="i in 4">
             <div class="cursor-pointer rounded-lg bg-white p-4 shadow transition-all hover:translate-y-1">
@@ -72,7 +81,7 @@ function selectMatpel(e: Event) {
             </div>
         </div>
     </div>
-    <div v-else class="flex bg-white rounded-lg py-5 flex-col min-h-[400px] border border-neutral-200 w-full items-center justify-center">
+    <div v-else class="flex min-h-[400px] w-full flex-col items-center justify-center rounded-lg border border-neutral-200 bg-white py-5">
         <NotFoundVector />
         <h1 class="mt-4 text-sm">Whoops!Belum Ada Materi! Untuk saat ini.</h1>
     </div>
