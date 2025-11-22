@@ -1,43 +1,48 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Kelas;
-use App\Models\Matpel;
-use App\Models\Siswa;
 use App\Service\Contract\KelasServiceInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
+use App\Service\MateriServiceInterface;
 
 class MateriController extends Controller
 {
-    public function materi(Request $request, KelasServiceInterface $kelasService)
-    {
-        $kelas = $request->kelas;
-        $matpel = $kelasService->get_matpels($request->kelas['id']);
-        /**
-         * jika url kosong redirect pake first id
-         */
-        if (($data = $matpel->first()) && !$request->query('matpel_id')) {
-            return to_route('siswa.materi', [
-                'matpel_id' => $data->kode_matpel,
+    public function materi(
+        Request $request,
+        KelasServiceInterface $kelasService,
+        MateriServiceInterface $materiService
+    ) {
+        //current matpel
+        $current_matpel = $request->query('matpel_id');
+        //kelas
+        $kelas_id = $request->kelas['id'];
+        //get kelas by service
+        $matpel = $kelasService
+            ->get_matpels($kelas_id)
+            ->select([
+                'matpel_kode',
+                'nama_matpel',
             ]);
+        //create first matpel id
+        if (empty($current_matpel)) {
+            return $kelasService->handleFirstMatpel();
         }
-        //ambil semua materi yang dimiliki siswa
-        $data = $kelasService->getMateriMatpel($kelas['id'], $request->query('matpel_id'));
-        return inertia('siswa/materi', [
-            'materials' => $data->map(function ($e) {
-                return [
-                    'nama_guru' => "Efendy",
-                    'title' => $e->title,
-                    'nama_matpel' => $e->nama_matpel,
-                    'nama_guru' => "$e->gelar_depan $e->nama_guru, $e->gelar_belakang"
-                ];
-            }),
+        $materi = $materiService
+            ->getMateri($kelas_id, $current_matpel)
+            ->select([
+                'materi_id',
+                'title',
+                'nama_matpel',
+                'nama_guru',
+            ]);
+        //response data
+        $dataResponse = [
+            'materials' => $materi,
             'matpels' => $matpel,
-            'current_matpel' => $request->query('matpel_id'),
-        ]);
+            'current_matpel' => $current_matpel,
+        ];
+
+        return inertia('siswa/materi', $dataResponse);
     }
     public function view()
     {

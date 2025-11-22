@@ -13,7 +13,7 @@ import { ref, watch } from 'vue';
 import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
 const page = usePage();
-const matpelCurrent = ref<any>(page.props.matpels.find((e) => e.kode_matpel === page.props.current_matpel));
+const matpelCurrent = ref<any>(page.props.matpels.find((e) => e.matpel_kode === page.props.current_matpel));
 
 watch(
     () => matpelCurrent.value,
@@ -76,7 +76,7 @@ watch(
                     </div>
                 </div>
                 <Link
-                    :href="view({ id: i })"
+                    :href="view({ id: i.materi_id })"
                     class="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-orange-500 px-1 py-2 text-sm text-neutral-800"
                 >
                     <IcBaselineRemoveRedEye />

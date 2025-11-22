@@ -38,20 +38,17 @@ class KelasServiceImpl implements KelasServiceInterface
         return $matpel->get();
     }
 
-    public function getMateriMatpel(string $kelas_id, string $matpel_id) : Collection
+    public function handleFirstMatpel()
     {
-        return $materis = DB::table('pengajarans')
-            ->where('materials.matpel_kode', '=', $matpel_id)
-            ->join('gurus', 'gurus.nip', '=', 'pengajarans.guru_nip')
-            ->join('kelas', 'kelas.id', '=', 'pengajarans.kelas_id')
-            ->join('matpels', 'matpels.kode', '=', 'pengajarans.matpel_kode')
-            ->join('users', 'users.id', '=', 'gurus.user_id')
-            ->join('materials', 'materials.matpel_kode', 'pengajarans.matpel_kode')
-            ->select(['pengajarans.*', 'gurus.gelar_depan', 'gurus.gelar_belakang', 'materials.title', 'materials.kelas_ids', 'matpels.nama as nama_matpel', 'users.name as nama_guru'])
-            ->get();
-        $data = $materis->filter(function ($e) use ($kelas_id) {
-            return Collection::fromJson($e->kelas_ids)->contains($kelas_id);
-        });
-        return $data;
+        $request = request();
+        $kelasService = app(KelasServiceInterface::class);
+        $matpel = $kelasService
+            ->get_matpels($request->kelas['id'])
+            ->select('matpel_kode', 'nama_matpel');
+        if ($data = $matpel->first()) {
+            return to_route('siswa.materi', [
+                'matpel_id' => $data['matpel_kode'],
+            ]);
+        }
     }
 }
