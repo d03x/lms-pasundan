@@ -27,15 +27,13 @@ function selectMatpel(e : Event){
     </div>
     <select @change="selectMatpel" class="mb-3 rounded outline-none border-neutral-200 shadow border-sm text-sm bg-white p-1 py-1.5 cursor-pointer text-neutral-600">
         <option class="text-sm" value="" disabled :selected="!matpelCurrent">Pilih Mata Pelajaran</option>
-        <option :selected="matpelCurrent === 'n983248742397423'" value="n983248742397423" class="text-sm">Teknik Kendaraan Ringan (4)</option>
-        <option :selected="matpelCurrent === '1'" value="1" class="text-sm">Teknologi Dasar Otomotif (39)</option>
-        <option :selected="matpelCurrent === '2'" value="2" class="text-sm">Pemeliharaan Mesin Kendaraan Ringan</option>
-        <option :selected="matpelCurrent === '4'" value="4" class="text-sm">Pemeliharaan Sasis & Pemindah Tenaga</option>
-        <option :selected="matpelCurrent === '3'" value="3" class="text-sm">Pemeliharaan Kelistrikan Kendaraan Ringan</option>
+        <option v-for="matpel in $page.props.matpels" :selected="matpelCurrent === matpel.kode_matpel" :value="matpel.kode_matpel" class="text-sm">
+            {{ matpel.nama_matpel ?? '' }} ({{ matpel?.nama_guru ?? '' }})
+        </option>
     </select>
 
     <div class="grid grid-cols-1 gap-3 lg:grid-cols-3">
-        <div v-for="i in 4">
+        <div v-if="false" v-for="i in 4">
             <div class="rounded-lg  shadow hover:translate-y-1 cursor-pointer transition-all bg-white p-4">
                 <h1>
                     <SolarNotebookBold class="text-red-500"/>

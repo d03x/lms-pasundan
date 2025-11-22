@@ -31,6 +31,7 @@ class AuthUserMiddleware
         }
         $request->merge([
             'role' => $user->role,
+            'kelas' => $user->kelas,
         ]);
         return $next($request);
     }

@@ -17,4 +17,7 @@ class Kelas extends Model
     public function siswa(){
         return $this->hasMany(Siswa::class);
     }
+    public function matpel(){
+        return $this->belongsToMany(Matpel::class,'pengajarans','kelas_id','matpel_kode');
+    }
 }

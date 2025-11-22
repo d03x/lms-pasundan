@@ -11,12 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('matpels', function (Blueprint $table) {
-            $table->string('kode', 25)->primary();
-            $table->string('nama', 100);
-            $table->enum('kategori', ['Adaptif', 'Normatif', 'Produktif'])->default('Adaptif');
-            $table->timestamps();
-        });
+        //
     }
 
     /**
@@ -24,6 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('matpels');
+        //
     }
 };
