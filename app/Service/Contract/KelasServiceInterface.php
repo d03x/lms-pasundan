@@ -5,5 +5,5 @@ namespace App\Service\Contract;
 
 interface KelasServiceInterface
 {
-    public function get_matpels(string $kelas) : \Illuminate\Support\Collection ;
+    public function get_matpels(string|null $kelas = null) : \Illuminate\Support\Collection ;
 }

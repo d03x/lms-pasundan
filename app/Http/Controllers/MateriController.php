@@ -20,6 +20,7 @@ class MateriController extends Controller
         }
         return inertia('siswa/materi', [
             'matpels' => $matpel,
+            'current_matpel' => $request->query('matpel_id'),
         ]);
     }
     public function view()

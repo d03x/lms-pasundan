@@ -13,7 +13,7 @@ class KelasServiceImpl implements KelasServiceInterface
      * Buat relasi mengunakan query builder manual
      * agar lebih cepet dan
      */
-    public function get_matpels(string $kelas_id) : Collection
+    public function get_matpels(string|null $kelas_id = null): Collection
     {
         $matpel = DB::table('pengajarans')
             ->join('kelas', 'pengajarans.kelas_id', '=', 'kelas.id')
@@ -29,14 +29,12 @@ class KelasServiceImpl implements KelasServiceInterface
                 'matpels.kategori',
                 'matpels.created_at',
                 'matpels.kode as kode_matpel',
-            )->selectRaw("CONCAT_WS(' ',gurus.gelar_depan,users.name,',',gurus.gelar_belakang) AS nama_guru")
-            ->where('kelas.id', $kelas_id)
-            ->get();
+            )->selectRaw("CONCAT_WS(' ',gurus.gelar_depan,users.name,',',gurus.gelar_belakang) AS nama_guru");
 
-        if (count($matpel) < 0) {
-            return null;
+        if ($kelas_id) {
+            $matpel->where('kelas.id', $kelas_id);
+            return $matpel->get();
         }
-
-        return $matpel;
+        return $matpel->get();
     }
 }
